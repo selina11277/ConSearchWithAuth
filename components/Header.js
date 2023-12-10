@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "@/public/logo.png";
 import config from "@/config";
+import SigninButton from "@/components/SigninButton"
 
 const links = [
   {
@@ -24,7 +25,7 @@ const links = [
   },
 ];
 
-const cta = <button className="btn btn-primary">Get started</button>;
+const cta = <SigninButton/>
 
 // A header with a logo on the left, links in the center (like Pricing, etc...), and a CTA (like Get Started or Login) on the right.
 // The header is responsive, and on mobile, the links are hidden behind a burger button.

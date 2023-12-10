@@ -2,7 +2,7 @@ import themes from "daisyui/src/theming/themes.js";
 
 const config = {
   // REQUIRED
-  appName: "ShipFast",
+  appName: "CodeLogic Pro",
   // REQUIRED (no https://, not trialing slash at the end, just the naked domain)
   domainName: "shipfa.st",
   crisp: {
@@ -87,7 +87,8 @@ const config = {
     main: themes[`[data-theme=light]`]["primary"],
   },
   // REQUIRED — the path you want to redirect users after successfull login (i.e. /dashboard, /private). This is normally a private page for users to manage their accounts. It's used in apiClient (/libs/api.js) upon 401 errors from our API & /hooks/usePrivate.js
-  callbackUrl: "/dashboard",
+  callbackUrl: "/product",
+  dashboardUrl: '/dashboard'
 };
 
 export default config;

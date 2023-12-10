@@ -14,6 +14,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/clp_components/ui/accordion';
+import { useRouter } from 'next/router';
+import { usePrivate } from "@/hooks/usePrivate";
 
 const documents: string[] = [
   "ADA_Standards_2010.pdf",
@@ -45,6 +47,8 @@ function processChatMessage(text: string): string {
 
 
 export default function Home() {
+  const router = useRouter();
+  const [session, status] = usePrivate();
   const [query, setQuery] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -62,6 +66,14 @@ export default function Home() {
     ],
     history: [],
   });
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/'); // Redirect to the home page if unauthenticated
+    }
+  }, [status, router]);
+
+  
   // State to track which accordion is visible
   const [visibleAccordionIndex, setVisibleAccordionIndex] = useState<null | number>(null);
 
@@ -216,6 +228,7 @@ export default function Home() {
   return (
     <Layout>
       <div className="mx-auto flex flex-col gap-4">
+        <br />
         <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
           CodeLogic Pro 🚧 *Demo*
         </h1>
@@ -239,7 +252,7 @@ export default function Home() {
                     icon = (
                       <Image
                         key={index}
-                        src="/hammer-wrench.png"
+                        src="/logo.png"
                         alt="AI"
                         width="40"
                         height="40"
