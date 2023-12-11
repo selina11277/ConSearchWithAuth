@@ -12,6 +12,9 @@ export const createCheckout = async ({
 }) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+
+  console.log("here, in stripe, the client ref id is")
+  console.log(clientReferenceId)
   const extraParams = {};
 
   if (user?.customerId) {

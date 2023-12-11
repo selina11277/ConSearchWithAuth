@@ -12,6 +12,8 @@ import config from "@/config";
 const ButtonSignin = ({ text = "Login", extraStyle }) => {
   const router = useRouter();
   const { data: session, status } = useSession()
+
+  
   const handleClick = () => {
     if (status === "authenticated") {
       router.push(config.dashboardUrl);

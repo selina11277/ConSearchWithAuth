@@ -15,6 +15,7 @@ export const authOptions = {
       // Follow the "Login with Google" tutorial to get your credentials
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
+      allowDangerousEmailAccountLinking: true,
       async profile(profile) {
         return {
           id: profile.sub,
@@ -29,6 +30,7 @@ export const authOptions = {
     EmailProvider({
       server: process.env.EMAIL_SERVER,
       from: config.mailgun.fromNoReply,
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   // New users will be saved in Database (MongoDB Atlas). Each user (model) has some fields like name, email, image, etc.. Learn more about the model type: https://next-auth.js.org/v3/adapters/models
