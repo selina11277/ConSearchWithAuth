@@ -1,8 +1,18 @@
 import Image from "next/image";
 import TestimonialsAvatars from "./TestimonialsAvatars";
 import BluePrintImage from "@/public/blueprint.png"
-
+import { useRouter } from "next/router"; // Corrected import
+import config from "@/config";
+import ButtonGet from "@/components/ButtonGet"
 const Hero = () => {
+
+  const router = useRouter();
+
+  const HandleClick = (e) =>  {
+    e.preventDefault(); // Prevent the default action
+    router.push(config.callbackUrl);
+  }
+
   return (
     <section className="max-w-7xl mx-auto bg-base-100 flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-20 px-8 py-8 lg:py-20">
       <div className="flex flex-col gap-10 lg:gap-14 items-center justify-center text-center lg:text-left lg:items-start">
@@ -30,7 +40,8 @@ const Hero = () => {
           CodeLogicPro leverages the lastest in AI technology with Code-Text-Specific Reinforcement. Answer code quetions instantly and accurately with CodeLogicPro. 
         </p>
 
-        <TestimonialsAvatars priority={true} />
+        {/* <TestimonialsAvatars priority={true} /> */}
+        <ButtonGet /> 
       </div>
       <div className="lg:w-full">
         <Image

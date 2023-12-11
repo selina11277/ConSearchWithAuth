@@ -30,7 +30,7 @@ export default async function handler(req, res) {
           const user = await User.findById(id);
 
           if (!user) {
-            return res.status(404).json({ error: "User doesnt exists" });
+            return res.status(404).json({ error: "User doesn't exist" });
           }
 
           const { coupon, successUrl, cancelUrl } = body;
@@ -41,6 +41,7 @@ export default async function handler(req, res) {
             clientReferenceID: user._id.toString(),
             priceId: body.priceId,
             coupon,
+            mode: body.mode,
           });
 
           return res.status(200).json({ url: stripeSessionURL });
@@ -51,7 +52,7 @@ export default async function handler(req, res) {
       }
 
       default:
-        res.status(404).json({ error: "Unknow request type" });
+        res.status(404).json({ error: "Unknown request type" });
     }
   } else {
     // Not Signed in

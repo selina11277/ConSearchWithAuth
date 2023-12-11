@@ -26,13 +26,10 @@ const Footer = () => {
                 height={24}
               />
               <strong className="font-extrabold tracking-tight text-base md:text-lg">
-                ShipFast
+                CodeLogic Pro
               </strong>
             </Link>
 
-            <p className="mt-3 text-sm text-base-content/80">
-              Ship your startup in days, not weeks
-            </p>
             <p className="mt-3 text-sm text-base-content/60">
               Copyright © {new Date().getFullYear()} - All rights reserved
             </p>

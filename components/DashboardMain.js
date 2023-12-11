@@ -3,6 +3,7 @@ import { signOut } from "next-auth/react";
 import apiClient from "@/libs/api";
 import { usePrivate } from "@/hooks/usePrivate";
 import TagSEO from "@/components/TagSEO";
+import ButtonCheckout from "@/components/ButtonCheckout"
 
 export default function DashboardMain() {
   // Custom hook to make private pages easier to deal with (see /hooks folder)
@@ -16,6 +17,7 @@ export default function DashboardMain() {
     email: session?.user?.email || '',
     password: '********', // Placeholder for password
   });
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -100,6 +102,9 @@ export default function DashboardMain() {
           >
             Logout
           </button>
+
+          <ButtonCheckout/>
+
 
         </section>
       </main>

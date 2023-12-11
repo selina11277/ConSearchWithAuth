@@ -4,6 +4,7 @@ import EmailProvider from "next-auth/providers/email";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import connectMongo from "@/libs/mongo";
 import config from "@/config";
+import nameAndLogo from "@/public/logoAndName.png"
 
 export const authOptions = {
   // Set any random key in .env.local
@@ -47,7 +48,7 @@ export const authOptions = {
     brandColor: config.colors.main,
     // Add you own logo below. Recommended size is rectangle (i.e. 200x50px) and show your logo + name.
     // It will be used in the login flow to display your logo. If you don't add it, it will look faded.
-    logo: `https://${config.domainName}/logoAndName.png`,
+    logo: "/logoAndName.png", 
   },
 };
 

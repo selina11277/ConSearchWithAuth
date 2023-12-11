@@ -1,5 +1,6 @@
 import config from "@/config";
 import ButtonCheckout from "./ButtonCheckout";
+import ButtonGet from "@/components/ButtonGet"
 
 // <Pricing/> displays the pricing plans for your app
 // It's your Stripe config in config.js.stripe.plans[] that will be used to display the plans
@@ -12,7 +13,7 @@ const Pricing = () => {
         <div className="flex flex-col text-center w-full mb-20">
           <p className="font-medium text-primary mb-8">Pricing</p>
           <h2 className="font-bold text-3xl lg:text-5xl tracking-tight">
-            Save hours of repetitive code and ship faster!
+            Save time and stress - get accurate answers to specific code questions now.
           </h2>
         </div>
 
@@ -89,10 +90,10 @@ const Pricing = () => {
                   </ul>
                 )}
                 <div className="space-y-2">
-                  <ButtonCheckout priceId={plan.priceId} />
+                  <ButtonCheckout priceId={plan.priceId} pay_url={plan.pay_url} mode={plan.mode} />
 
                   <p className="flex items-center justify-center gap-2 text-sm text-center text-base-content/80 font-medium relative">
-                    Pay once. Access forever.
+                    Charges are per month
                   </p>
                 </div>
               </div>
