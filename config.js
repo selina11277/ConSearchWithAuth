@@ -13,6 +13,7 @@ const config = {
   },
   stripe: {
     // Create multiple plans in your Stripe dashboard, then add them here. You can add as many plans as you want, just make sure to add the priceId
+    portalLink:'https://billing.stripe.com/p/login/test_aEU3fka0g3Hl5pe6oo',
     plans: [
       {
         // REQUIRED — we use this to find the plan in the webhook (for instance if you want to update the user's credits based on the plan)
@@ -29,6 +30,7 @@ const config = {
 
         //this is code that I (brad) added to get subscription support
         mode:'subscription',
+        
 
         // If you have an anchor price (i.e. $29) that you want to display crossed out, put it here. Otherwise, leave it empty
         priceAnchor: 54.99,

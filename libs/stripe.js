@@ -17,6 +17,11 @@ export const createCheckout = async ({
   console.log(clientReferenceId)
   const extraParams = {};
 
+
+
+  // console.log("debug me 3")
+  // debugger;
+
   if (user?.customerId) {
     extraParams.customer = user.customerId;
   } else {

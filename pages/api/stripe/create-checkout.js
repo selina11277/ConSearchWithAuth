@@ -44,6 +44,10 @@ export default async function handler(req, res) {
 
           const { coupon, successUrl, cancelUrl } = body;
 
+
+          // console.log("debug me")
+          // debugger;
+
           const stripeSessionURL = await createCheckout({
             successUrl,
             cancelUrl,
@@ -51,6 +55,7 @@ export default async function handler(req, res) {
             priceId: body.priceId,
             coupon,
             mode: body.mode,
+            user
           });
 
           return res.status(200).json({ url: stripeSessionURL });

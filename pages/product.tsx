@@ -52,6 +52,7 @@ export default function Home() {
   const [query, setQuery] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [hasAccess, setHasAccess] = useState<boolean>(false);
   const [messageState, setMessageState] = useState<{
     messages: Message[];
     pending?: string;
@@ -70,8 +71,29 @@ export default function Home() {
   useEffect(() => {
     if (status === 'unauthenticated') {
       router.push('/'); // Redirect to the home page if unauthenticated
+    } else if (status === 'authenticated') {
+      checkUserAccess();
     }
   }, [status, router]);
+
+  const checkUserAccess = async (): Promise<void> => {
+    try {
+      const response = await fetch('/api/user/hasAccess');
+      if (response.ok) {
+        const data = await response.json() as { hasAccess: boolean };
+        if (!data.hasAccess) {
+          router.push('/');
+        } else {
+          setHasAccess(true);
+        }
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (error) {
+      console.error('Error checking access:', error);
+      router.push('/error-page');
+    }
+  };
 
   
   // State to track which accordion is visible

@@ -19,8 +19,9 @@ const ButtonCheckout = ({ priceId, mode}) => {
       const response = await apiClient.post("/stripe/create-checkout", {
         priceId,
         mode,
-        successUrl: "http://localhost:3000/dashboard",
-        cancelUrl: "https://www.reddit.com",
+        successUrl: "http://localhost:3000/product",
+        cancelUrl: "http://localhost:3000/dashboard",
+        //reddit
       });
   
       console.log("API response:", response); // Log the response
