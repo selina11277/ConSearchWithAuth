@@ -1,0 +1,9 @@
+
+
+
+Add selection panel for choosing which code to query 
+
+make sure there are no wrinkles in the auth if someone uses email / google / both 
+
+change subscription status to active=false on appropriate webhook call 
+

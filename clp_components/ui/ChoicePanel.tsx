@@ -1,0 +1,51 @@
+import { useState } from "react";
+import { useRouter } from "next/router"; 
+import { signOut } from "next-auth/react";
+import apiClient from "@/libs/api";
+import { usePrivate } from "@/hooks/usePrivate";
+import TagSEO from "@/components/TagSEO";
+import ButtonCheckout from "@/components/ButtonCheckout";
+import { getServerSession } from "next-auth/next";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import config from "@/config";
+import CodeChoice from '@/clp_components/ui/CodeChoice';
+
+
+
+
+export default function ChoicePanel() {
+
+  const codeChoices = [
+    { bgColorClass: 'bg-slate-300', codeName: 'ADA' },
+    { bgColorClass: 'bg-slate-300', codeName: 'IBC' },
+    { bgColorClass: 'bg-slate-300', codeName: 'IFC' },
+    { bgColorClass: 'bg-slate-200', codeName: 'IFGC' },
+    { bgColorClass: 'bg-slate-300', codeName: 'IMC' },
+    { bgColorClass: 'bg-slate-200', codeName: 'IPC' },
+    { bgColorClass: 'bg-slate-200', codeName: 'ISPSC' },
+    { bgColorClass: 'bg-slate-300', codeName: 'IECC' },
+    // { bgColorClass: 'bg-blue-200', codeName: 'IBC' },
+    // { bgColorClass: 'bg-red-300', codeName: 'IRC' },
+    // { bgColorClass: 'bg-green-200', codeName: 'ADA' },
+  ];
+
+
+
+  const handleSelectionChange = (codeName: string, isSelected: boolean) => {
+    console.log(codeName, isSelected); // Here, you can manage the state or perform actions based on the selection.
+  };
+  // Custom hook to make private pages easier to deal with (see /hooks folder)
+  
+  return (
+    <div className={`border-solid border-black border-2 rounded-xl w-3/5 max-h-52 flex self-center flex-col`}>
+        <h2 className='text-center text-2xl font-serif'>Select Codes:</h2>
+      <div className=' m-1 w-full flex justify-around flex-wrap p-2 py-0 overflow-y-scroll'>
+        {codeChoices.map((choice, index) => (
+          <CodeChoice key={index} bgColorClass={choice.bgColorClass} codeName={choice.codeName} onSelectionChange={handleSelectionChange} />
+        ))}
+      </div>
+  </div>
+  );
+}
+

@@ -4,7 +4,7 @@ import { signOut } from "next-auth/react";
 import apiClient from "@/libs/api";
 import { usePrivate } from "@/hooks/usePrivate";
 import TagSEO from "@/components/TagSEO";
-import ButtonCheckout from "@/components/pricing";
+import ButtonCheckout from "@/components/ButtonCheckout";
 import { getServerSession } from "next-auth/next";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -17,6 +17,8 @@ export default function DashboardMain() {
   const [isEditing, setIsEditing] = useState(false);
   const [session, status, updateSession] = usePrivate({}); // Add updateSession function
   const router = useRouter();
+
+  const plan = config.stripe.plans[0];
 
 
   const email =session?.user?.email;
@@ -74,7 +76,7 @@ export default function DashboardMain() {
         );
       case 'denied':
         // Return the ButtonGet component if the user does not have access
-        return <ButtonCheckout />;
+        return <ButtonCheckout priceId={plan.priceId} pay_url={plan.pay_url} mode={plan.mode}/>
       default:
         // Handle other cases or return null if no other cases are expected
         return null;

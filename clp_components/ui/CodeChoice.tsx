@@ -41,8 +41,8 @@ const CodeChoice: React.FC<CodeChoiceProps> = ({ bgColorClass, codeName, onSelec
   };
 
   return (
-    <div className={`flex items-center justify-between h-12 w-24 p-4 rounded-lg m-2 cursor-pointer ${bgColorClass}`} style={containerStyle} onClick={handleContainerClick}>
-      <span className="mr-2 font-sans">{codeName}</span>
+    <div className={`flex items-center justify-between h-8 w-24 p-4 rounded-lg m-2 cursor-pointer ${bgColorClass}`} style={containerStyle} onClick={handleContainerClick}>
+      <span className="mr-2 font-sans">{codeName} </span>
       <div style={customCheckboxStyle}>
         <input type="checkbox" checked={isSelected} onChange={handleContainerClick} onClick={(e) => e.stopPropagation()} style={checkboxStyle} />
         {isSelected && <span>✓</span>} {/* Display a checkmark when selected */}

@@ -4,7 +4,6 @@ import EmailProvider from "next-auth/providers/email";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import connectMongo from "@/libs/mongo";
 import config from "@/config";
-import nameAndLogo from "@/public/logoAndName.png"
 
 export const authOptions = {
   // Set any random key in .env.local

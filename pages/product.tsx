@@ -6,7 +6,7 @@ import { Message } from '@/clp_types/chat';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import LoadingDots from '@/clp_components/ui/LoadingDots';
-import CodeChoice from '@/clp_components/ui/CodeChoice';
+import ChoicePanel from '@/clp_components/ui/ChoicePanel';
 import { Document } from 'langchain/document';
 import {
   Accordion,
@@ -212,32 +212,7 @@ export default function Home() {
     }
   };
 
-  const codeChoices = [
-    { bgColorClass: 'bg-slate-300', codeName: 'ADA' },
-    { bgColorClass: 'bg-slate-300', codeName: 'IBC' },
-    { bgColorClass: 'bg-slate-300', codeName: 'IFC' },
-    { bgColorClass: 'bg-slate-200', codeName: 'IFGC' },
-    { bgColorClass: 'bg-slate-300', codeName: 'IMC' },
-    { bgColorClass: 'bg-slate-200', codeName: 'IPC' },
-    { bgColorClass: 'bg-slate-200', codeName: 'ISPSC' },
-    { bgColorClass: 'bg-slate-300', codeName: 'IECC' },
-    // { bgColorClass: 'bg-blue-200', codeName: 'IBC' },
-    // { bgColorClass: 'bg-red-300', codeName: 'IRC' },
-    // { bgColorClass: 'bg-green-200', codeName: 'ADA' },
-  ];
 
-  // State for container height
-  const [containerHeight, setContainerHeight] = useState('h-36');
-
-  // Update container height based on the number of CodeChoice components
-  useEffect(() => {
-    setContainerHeight(codeChoices.length > 9 ? 'h-52' : 'h-36');
-  }, [codeChoices.length]);
-
-
-  const handleSelectionChange = (codeName: string, isSelected: boolean) => {
-    console.log(codeName, isSelected); // Here, you can manage the state or perform actions based on the selection.
-  };
 
   // Explicitly type the accumulator in the reduce function
   const allSourceDocs = messages.reduce<Document[]>((acc, message) => {
@@ -254,157 +229,152 @@ export default function Home() {
         <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
           CodeLogic Pro 🚧 *Demo*
         </h1>
-        {/* <div className={`border-solid border-black border-2 flex-row rounded-xl w-3/5 ${containerHeight} max-h-52 flex self-center`}>
-          <div className='border-solid border-r-4 border-red-400 h-full w-1/6 flex justify-center items-center p-0'>
-            <h2 className='text-center text-2xl font-serif'>Select <br/> Your <br/> Codes:</h2>
-          </div>
-          <div className=' m-1 w-full flex justify-around flex-wrap p-2 py-0 overflow-y-scroll'>
-            {codeChoices.map((choice, index) => (
-              <CodeChoice key={index} bgColorClass={choice.bgColorClass} codeName={choice.codeName} onSelectionChange={handleSelectionChange} />
-            ))}
-          </div>
-      </div> */}
-        <main className={styles.main}>
-          <div className={styles.cloud}>
-            <div ref={messageListRef} className={styles.messagelist}>
-              {messages.map((message, index) => {
-                  let icon;
-                  let className;
-                  if (message.type === 'apiMessage') {
-                    icon = (
-                      <Image
-                        key={index}
-                        src="/logo.png"
-                        alt="AI"
-                        width="40"
-                        height="40"
-                        className={styles.boticon}
-                        priority
-                      />
-                    );
-                    className = styles.apimessage;
-                  } else {
-                    icon = (
-                      <div
-                        style={{
-                          width: '1.6em',
-                          height: '1.6em',
-                          backgroundColor: 'black',
-                          borderRadius: '50%',
-                          marginRight: '1.55em',
-                          marginLeft: '0.4em',
-                        }}
-                      />
-                    );
-                    className =
-                      loading && index === messages.length - 1
-                        ? styles.usermessagewaiting
-                        : styles.usermessage;
-                  }
-                  return (
-                    <>
-                      <div key={`chatMessage-${index}`} className={className}>
-                        {icon}
-                        <div className={styles.markdownanswer}>
-                          <ReactMarkdown linkTarget="_blank">
-                            {processChatMessage(message.message)}
-                          </ReactMarkdown>
+        <div className='flex border-solid border-2 border-black w-4/5 self-center justify-around'>
+          <ChoicePanel />
+          <main className={styles.main}>
+            <div className={styles.cloud}>
+              <div ref={messageListRef} className={styles.messagelist}>
+                {messages.map((message, index) => {
+                    let icon;
+                    let className;
+                    if (message.type === 'apiMessage') {
+                      icon = (
+                        <Image
+                          key={index}
+                          src="/logo.png"
+                          alt="AI"
+                          width="40"
+                          height="40"
+                          className={styles.boticon}
+                          priority
+                        />
+                      );
+                      className = styles.apimessage;
+                    } else {
+                      icon = (
+                        <div
+                          style={{
+                            width: '1.6em',
+                            height: '1.6em',
+                            backgroundColor: 'black',
+                            borderRadius: '50%',
+                            marginRight: '1.55em',
+                            marginLeft: '0.4em',
+                          }}
+                        />
+                      );
+                      className =
+                        loading && index === messages.length - 1
+                          ? styles.usermessagewaiting
+                          : styles.usermessage;
+                    }
+                    return (
+                      <>
+                        <div key={`chatMessage-${index}`} className={className}>
+                          {icon}
+                          <div className={styles.markdownanswer}>
+                            <ReactMarkdown linkTarget="_blank">
+                              {processChatMessage(message.message)}
+                            </ReactMarkdown>
+                          </div>
                         </div>
+                        {message.sourceDocs && (
+                          <>
+                          <div className={className + ' flex justify-center'}>
+                            <button
+                              onClick={() => toggleAccordion(index)}
+                              className="my-2 p-2 text-blue-500 border border-blue-500 rounded justify-center"
+                            >
+                              {visibleAccordionIndex === index ? "Hide Sources" : "See Sources"}
+                            </button>
+                          </div>
+                            
+                            {visibleAccordionIndex === index && (
+                              <div className="p-5">
+                                <Accordion
+                                  type="single"
+                                  collapsible
+                                  className="flex-col"
+                                >
+                                  {message.sourceDocs.map((doc, docIndex) => (
+                                    <div key={`messageSourceDocs-${docIndex}`}>
+                                      <AccordionItem value={`item-${docIndex}`}>
+                                        <AccordionTrigger>
+                                          <h3>Source {docIndex + 1}</h3>
+                                        </AccordionTrigger>
+                                        <AccordionContent>
+                                          <ReactMarkdown linkTarget="_blank">
+                                            {doc.pageContent}
+                                          </ReactMarkdown>
+                                          <p className="mt-2">
+                                          <b>Source:</b> {doc.metadata.source.split('/').pop().replace(/_/g, ' ').replace('.pdf', '')}
+                                          </p>
+                                        </AccordionContent>
+                                      </AccordionItem>
+                                    </div>
+                                  ))}
+                                </Accordion>
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </>
+                    );
+                  })}
+              </div>
+            </div>
+            <div className={styles.center}>
+              <div className={styles.cloudform}>
+                <form onSubmit={handleSubmit}>
+                  <textarea
+                    disabled={loading}
+                    onKeyDown={handleEnter}
+                    ref={textAreaRef}
+                    autoFocus={false}
+                    rows={1}
+                    maxLength={512}
+                    id="userInput"
+                    name="userInput"
+                    placeholder={
+                      loading
+                        ? 'Waiting for response...'
+                        : 'What fasteners are sufficient at shear walls?'
+                    }
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    className={styles.textarea}
+                  />
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className={styles.generatebutton}
+                  >
+                    {loading ? (
+                      <div className={styles.loadingwheel}>
+                        <LoadingDots color="#000" />
                       </div>
-                      {message.sourceDocs && (
-                        <>
-                        <div className={className + ' flex justify-center'}>
-                          <button
-                            onClick={() => toggleAccordion(index)}
-                            className="my-2 p-2 text-blue-500 border border-blue-500 rounded justify-center"
-                          >
-                            {visibleAccordionIndex === index ? "Hide Sources" : "See Sources"}
-                          </button>
-                        </div>
-                          
-                          {visibleAccordionIndex === index && (
-                            <div className="p-5">
-                              <Accordion
-                                type="single"
-                                collapsible
-                                className="flex-col"
-                              >
-                                {message.sourceDocs.map((doc, docIndex) => (
-                                  <div key={`messageSourceDocs-${docIndex}`}>
-                                    <AccordionItem value={`item-${docIndex}`}>
-                                      <AccordionTrigger>
-                                        <h3>Source {docIndex + 1}</h3>
-                                      </AccordionTrigger>
-                                      <AccordionContent>
-                                        <ReactMarkdown linkTarget="_blank">
-                                          {doc.pageContent}
-                                        </ReactMarkdown>
-                                        <p className="mt-2">
-                                        <b>Source:</b> {doc.metadata.source.split('/').pop().replace(/_/g, ' ').replace('.pdf', '')}
-                                        </p>
-                                      </AccordionContent>
-                                    </AccordionItem>
-                                  </div>
-                                ))}
-                              </Accordion>
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </>
-                  );
-                })}
+                    ) : (
+                      <svg
+                        viewBox="0 0 20 20"
+                        className={styles.svgicon}
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                      </svg>
+                    )}
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
-          <div className={styles.center}>
-            <div className={styles.cloudform}>
-              <form onSubmit={handleSubmit}>
-                <textarea
-                  disabled={loading}
-                  onKeyDown={handleEnter}
-                  ref={textAreaRef}
-                  autoFocus={false}
-                  rows={1}
-                  maxLength={512}
-                  id="userInput"
-                  name="userInput"
-                  placeholder={
-                    loading
-                      ? 'Waiting for response...'
-                      : 'What fasteners are sufficient at shear walls?'
-                  }
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  className={styles.textarea}
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className={styles.generatebutton}
-                >
-                  {loading ? (
-                    <div className={styles.loadingwheel}>
-                      <LoadingDots color="#000" />
-                    </div>
-                  ) : (
-                    <svg
-                      viewBox="0 0 20 20"
-                      className={styles.svgicon}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
-                    </svg>
-                  )}
-                </button>
-              </form>
-            </div>
-          </div>
-          {error && (
-            <div className="border border-red-400 rounded-md p-4">
-              <p className="text-red-500">{error}</p>
-            </div>
-          )}
-        </main>
+            {error && (
+              <div className="border border-red-400 rounded-md p-4">
+                <p className="text-red-500">{error}</p>
+              </div>
+            )}
+          </main>
+
+        </div>
+        
       </div>
       <footer className="m-auto p-4">
         <h1 className='text-2xl text-center'>
