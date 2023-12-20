@@ -17,7 +17,7 @@ import CodeChoice from '@/clp_components/ui/CodeChoice';
 export default function ChoicePanel() {
 
   const codeChoices = [
-    { bgColorClass: 'bg-slate-300', codeName: 'ADA' },
+    { bgColorClass: 'bg-slate-300', codeName: 'ADA ' },
     { bgColorClass: 'bg-slate-300', codeName: 'IBC' },
     { bgColorClass: 'bg-slate-300', codeName: 'IFC' },
     { bgColorClass: 'bg-slate-200', codeName: 'IFGC' },
@@ -38,9 +38,9 @@ export default function ChoicePanel() {
   // Custom hook to make private pages easier to deal with (see /hooks folder)
   
   return (
-    <div className={`border-solid border-black border-2 rounded-xl w-3/5 max-h-52 flex self-center flex-col`}>
-        <h2 className='text-center text-2xl font-serif'>Select Codes:</h2>
-      <div className=' m-1 w-full flex justify-around flex-wrap p-2 py-0 overflow-y-scroll'>
+    <div className={`border-solid border-black border-2 rounded-xl flex self-center flex-col md-p-5`}>
+        <h2 className='text-center text-2xl font-mono p-4'>Select Codes to Query:</h2>
+      <div className='w-full flex justify-left h-full flex-wrap overflow-y-scroll'>
         {codeChoices.map((choice, index) => (
           <CodeChoice key={index} bgColorClass={choice.bgColorClass} codeName={choice.codeName} onSelectionChange={handleSelectionChange} />
         ))}

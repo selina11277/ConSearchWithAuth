@@ -38,6 +38,7 @@ const CodeChoice: React.FC<CodeChoiceProps> = ({ bgColorClass, codeName, onSelec
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft: '6px',
   };
 
   return (

@@ -229,7 +229,7 @@ export default function Home() {
         <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
           CodeLogic Pro 🚧 *Demo*
         </h1>
-        <div className='flex border-solid border-2 border-black w-4/5 self-center justify-around'>
+        <div className='flex flex-wrap border-solid border-black w-5/6 md-w-full self-center justify-around md-px-10'>
           <ChoicePanel />
           <main className={styles.main}>
             <div className={styles.cloud}>
