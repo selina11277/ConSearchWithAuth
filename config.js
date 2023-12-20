@@ -24,7 +24,7 @@ const config = {
         //  REQUIRED - Name of the plan, displayed on the pricing page
         name: "CodeLogic Pro",
         // A friendly description of the plan, displayed on the pricing page. Tip: explain why this plan and not others
-        description: "Perfect for small projects",
+        description: "Get Code Questions Answered",
         // The price you want to display, the one user will be charged on Stripe.
         price: 29.99,
 
@@ -33,14 +33,14 @@ const config = {
         
 
         // If you have an anchor price (i.e. $29) that you want to display crossed out, put it here. Otherwise, leave it empty
-        priceAnchor: 54.99,
+        priceAnchor: '',
         features: [
           {
-            name: "NextJS boilerplate",
+            name: "8 Major Building Codes",
           },
-          { name: "User oauth" },
-          { name: "Database" },
-          { name: "Emails" },
+          { name: "Unlimited Messages" },
+          { name: "Source List included" },
+          { name: "7 Day Trial" },
         ],
       },
       // {

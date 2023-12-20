@@ -6,21 +6,33 @@ import { useRef, useState } from "react";
 const faqList = [
   {
     question: "What do I get exactly?",
-    answer: <div className="space-y-2 leading-relaxed">Loreum Ipseum</div>,
+    answer: <div className="space-y-2 leading-relaxed">CodeLogic Pro is a new way to interact with Building Codes. 
+    With CodeLogic Pro, you can talk to codes directly, asking specific relevant questions and getting answers tailored to 
+    your inquiry instantly. </div>,
   },
   {
-    question: "Can I get a refund?",
+    question: "What codes are included?",
     answer: (
-      <p>
-        Yes! You can request a refund within 7 days of your purchase. Reach out
-        by email.
-      </p>
+      <div className="space-y-2 leading-relaxed">Right now we support the ADA, IBC, IRC,      
+      IFC,
+      
+      IFGC,
+      
+      IMC,
+      
+      IPC,
+      
+      ISPSC, 
+
+      and the 
+      
+      IECC.</div>
     ),
   },
   {
-    question: "I have another question",
+    question: "Do you have jurisdiction-specific codes?",
     answer: (
-      <div className="space-y-2 leading-relaxed">Cool, contact us by email</div>
+      <div className="space-y-2 leading-relaxed">Not yet - but we're working on it.</div>
     ),
   },
 ];
