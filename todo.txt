@@ -1,9 +1,19 @@
 
+Done        TASK
+-------|-----------------------------------
+  x         Add selection panel for choosing which code to query 
+
+            make sure there are no wrinkles in the auth if someone uses email / google / both 
+
+  x         change subscription status to active=false on appropriate webhook call 
+
+            terms of service 
+
+            privacy policy 
 
 
-Add selection panel for choosing which code to query 
 
-make sure there are no wrinkles in the auth if someone uses email / google / both 
 
-change subscription status to active=false on appropriate webhook call 
+Roadmap: 
 
+add jurisdictions 
