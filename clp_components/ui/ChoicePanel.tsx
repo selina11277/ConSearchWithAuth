@@ -28,6 +28,8 @@ export default function ChoicePanel({ onDocSelectionChange }) {
     { codeName: 'IPC', isSelectedByDefault: false },
     { codeName: 'ISPSC', isSelectedByDefault: false },
     { codeName: 'IECC', isSelectedByDefault: false },
+    { codeName: 'IFGC', isSelectedByDefault: false },
+
   ];
 
   const defaultJurisdiction = 'US - General'; // Set your default jurisdiction
@@ -49,11 +51,11 @@ export default function ChoicePanel({ onDocSelectionChange }) {
   // Custom hook to make private pages easier to deal with (see /hooks folder)
   
   return (
-    <div className={`border-solid border-black border rounded-xl flex self-baseline mt-4 flex-col md:p-5 max-w-[270px]`}>
+    <div className={`border-solid border-black border rounded-xl flex self-baseline mt-4 flex-col md:p-5 max-w-[290px]`}>
       
       
       <h2 className='text-center text-md font-mono p-4 pt-0'>Select Codes to Query:</h2>
-      <div className='w-full flex justify-left h-full flex-wrap overflow-y-scroll'>
+      <div className='w-full flex justify-left h-full flex-wrap overflow-y-auto max-h-[35vh]'>
         {codeChoices.map((choice, index) => (
           <CodeChoice 
             key={index} 
