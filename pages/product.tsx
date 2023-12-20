@@ -61,7 +61,7 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: 'Welcome to CodeLogic Pro. We provide insights and answers on a range of codes including the International Residential Code, International Building Code, ADA Standards, International Fire Code, International Fuel Gas Code, International Mechanical Code, International Plumbing Code, International Swimming Pool and Spa Code, International Energy Conservation Code, and more. How can we assist you today?',
+        message: 'Welcome to CodeLogic Pro. How can we assist you today?',
         type: 'apiMessage',
       },
     ],
@@ -123,19 +123,30 @@ export default function Home() {
   const [selectedDocs, setSelectedDocs] = useState<string[]>([]);
 
   // Handle document selection
-  const handleDocSelection = (doc: string) => {
+  const handleDocSelection = (doc, isSelected) => {
     setSelectedDocs(prevSelectedDocs => {
-      if (prevSelectedDocs.includes(doc)) {
-        return prevSelectedDocs.filter(selectedDoc => selectedDoc !== doc);
+      if (isSelected) {
+        return prevSelectedDocs.includes(doc) ? prevSelectedDocs : [...prevSelectedDocs, doc];
       } else {
-        return [...prevSelectedDocs, doc];
+        return prevSelectedDocs.filter(selectedDoc => selectedDoc !== doc);
       }
     });
   };
 
+  useEffect(() => {
+    if (selectedDocs.length > 0) {
+      setError(null);
+    }
+  }, [selectedDocs]);
+
   //handle form submission
   async function handleSubmit(e: any) {
     e.preventDefault();
+
+    if (selectedDocs.length === 0) {
+      setError("No codes are selected, please select at least one code to query.");
+      return;
+    }
 
     setError(null);
 
@@ -227,10 +238,10 @@ export default function Home() {
       <div className="mx-auto flex flex-col gap-4">
         <br />
         <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
-          CodeLogic Pro 🚧 *Demo*
+          CodeLogic Pro
         </h1>
-        <div className='flex flex-wrap border-solid border-black w-5/6 md-w-full self-center justify-around md-px-10'>
-          <ChoicePanel />
+        <div className='flex md:flex-nowrap flex-wrap border-solid border-black w-full self-center justify-around md:px-5'>
+        <ChoicePanel onDocSelectionChange={handleDocSelection} />
           <main className={styles.main}>
             <div className={styles.cloud}>
               <div ref={messageListRef} className={styles.messagelist}>

@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 
+
 interface CodeChoiceProps {
-  bgColorClass: string;
   codeName: string;
+  isSelectedByDefault: boolean; // New prop
   onSelectionChange: (codeName: string, isSelected: boolean) => void;
 }
 
-const CodeChoice: React.FC<CodeChoiceProps> = ({ bgColorClass, codeName, onSelectionChange }) => {
-  const [isSelected, setIsSelected] = useState(false);
+const CodeChoice = ({ codeName, isSelectedByDefault, onSelectionChange }) => {
+  const [isSelected, setIsSelected] = useState(isSelectedByDefault); 
 
   const handleContainerClick = () => {
     const newSelectedState = !isSelected;
     setIsSelected(newSelectedState);
-    onSelectionChange(codeName, newSelectedState);
+    onSelectionChange(newSelectedState); // Pass the new selection state
   };
 
   const containerStyle = {
@@ -42,7 +43,7 @@ const CodeChoice: React.FC<CodeChoiceProps> = ({ bgColorClass, codeName, onSelec
   };
 
   return (
-    <div className={`flex items-center justify-between h-8 w-24 p-4 rounded-lg m-2 cursor-pointer ${bgColorClass}`} style={containerStyle} onClick={handleContainerClick}>
+    <div className={`flex items-center justify-between h-8 w-24 p-2 rounded-lg m-2 cursor-pointer`} style={containerStyle} onClick={handleContainerClick}>
       <span className="mr-2 font-sans">{codeName} </span>
       <div style={customCheckboxStyle}>
         <input type="checkbox" checked={isSelected} onChange={handleContainerClick} onClick={(e) => e.stopPropagation()} style={checkboxStyle} />
