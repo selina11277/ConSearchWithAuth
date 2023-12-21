@@ -29,7 +29,6 @@ export default function ChoicePanel({ onDocSelectionChange }) {
     { codeName: 'ISPSC', isSelectedByDefault: false },
     { codeName: 'IECC', isSelectedByDefault: false },
     { codeName: 'IFGC', isSelectedByDefault: false },
-
   ];
 
   const defaultJurisdiction = 'US - General'; // Set your default jurisdiction

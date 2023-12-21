@@ -91,7 +91,7 @@ export default function Home() {
       }
     } catch (error) {
       console.error('Error checking access:', error);
-      router.push('/error-page');
+      router.push('/');
     }
   };
 
