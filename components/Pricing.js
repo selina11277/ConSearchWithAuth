@@ -63,7 +63,7 @@ const Pricing = () => {
                   </p>
                   <div className="flex flex-col justify-end mb-[4px]">
                     <p className="text-xs text-base-content/60 uppercase font-semibold">
-                      USD
+                    USD / Month
                     </p>
                   </div>
                 </div>
