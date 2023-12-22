@@ -36,20 +36,20 @@ export const authOptions = {
   // New users will be saved in Database (MongoDB Atlas). Each user (model) has some fields like name, email, image, etc.. Learn more about the model type: https://next-auth.js.org/v3/adapters/models
   adapter: MongoDBAdapter(connectMongo),
   callbacks: {
-    async signIn({ user, account }) {
-      if (account.provider === 'google') {
-        // Check if a user with this email already exists
-        const existingUser = await User.findOne({ email: user.email });
+    // async signIn({ user, account }) {
+    //   if (account.provider === 'google') {
+    //     // Check if a user with this email already exists
+    //     const existingUser = await User.findOne({ email: user.email });
 
-        if (existingUser) {
-          // Update user details with Google profile info
-          existingUser.name = user.name || existingUser.name;
-          existingUser.image = user.image || existingUser.image;
-          await existingUser.save();
-        }
-      }
-      return true; // Return true to continue the sign-in process
-    },
+    //     if (existingUser) {
+    //       // Update user details with Google profile info
+    //       existingUser.name = user.name || existingUser.name;
+    //       existingUser.image = user.image || existingUser.image;
+    //       await existingUser.save();
+    //     }
+    //   }
+    //   return true; // Return true to continue the sign-in process
+    // },
     session: async ({ session, token }) => {
       if (session?.user) {
         session.user.id = token.sub;
