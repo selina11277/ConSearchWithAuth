@@ -180,6 +180,7 @@ export default function Home() {
         body: JSON.stringify({
           question,
           history,
+          selectedDocs, // Include the array of selected document names
         }),
       });
       const data = await response.json();

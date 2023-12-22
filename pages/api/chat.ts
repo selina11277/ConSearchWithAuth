@@ -6,33 +6,46 @@ import { makeChain } from '@/clp_utils/makechain';
 import { pinecone } from '@/clp_utils/pinecone-client';
 import { PINECONE_INDEX_NAME, PINECONE_NAME_SPACE } from '@/clp_config/pinecone';
 
+function mapAcronymsToFilenames(selectedDocs: string[]): string[] {
+  const acronymMapping = {
+    'ADA': ['ADA_Standards_2010.pdf', 'ADA_Standards_Guidance_2010.pdf'],
+    'IBC': ['International_Building_Code_2021.pdf'],
+    'IFC': ['International_Fire_Code_2021.pdf'],
+    'IFGC': ['International_Fuel_Gas_Code_2021.pdf'],
+    'IMC': ['International_Mechanical_Code_2021.pdf'],
+    'IPC': ['International_Plumbing_Code_2021.pdf'],
+    'ISPSC': ['International_Swimming_Pool_and_Spa_Code_2021.pdf'],
+    'IECC': ['International_Energy_Conservation_Code_2021.pdf'],
+    'IRC': ['International_Residential_Code_2018.pdf'],
+    // Add other mappings as needed
+  };
+
+  let fileNames: string[] = [];
+
+  selectedDocs.forEach(doc => {
+    if (acronymMapping[doc]) {
+      fileNames = [...fileNames, ...acronymMapping[doc]];
+    }
+  });
+
+  return fileNames;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { question, history } = req.body;
+  const { question, history, selectedDocs } = req.body;
 
   console.log('question', question);
   console.log('history', history);
+  console.log('selectedDocs', selectedDocs);
   // define source filter with source: "/Users/black/gpt/construction-search/docs/International Building Code - 2021pdf.pdf":
   // const sourceFilter = "/Users/black/gpt/construction-search/docs/Construction Definitions - 2014.pdf";
   // const sourceFilter = ["/Users/black/gpt/construction-search/docs/International Building Code - 2021pdf.pdf"];
 
-  const fileNames: string[] = [
-    "ADA_Standards_2010.pdf",
-    "ADA_Standards_Guidance_2010.pdf",
-    "Construction_Definitions_2014.pdf",
-    "International_Building_Code_2021.pdf",
-    "International_Fire_Code_2021.pdf",
-    "International_Fuel_Gas_Code_2021.pdf",
-    "International_Mechanical_Code_2021.pdf",
-    "International_Plumbing_Code_2021.pdf",
-    "International_Swimming_Pool_and_Spa_Code_2021.pdf",
-    "International_Energy_Conservation_Code_2021.pdf",
-    "International_Residential_Code_2018.pdf",
-    "National_Electrical_Code_2023.pdf",
-];
-
+  let fileNames: string[] = mapAcronymsToFilenames(selectedDocs); // Corrected type
+  console.log(fileNames);
 
   const basePath: string = "/Users/black/gpt/construction-search/docs/";
 
